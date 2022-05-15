@@ -1,48 +1,48 @@
 package utils.DataHandling;
 
 import org.apache.spark.sql.types.DataTypes;
+import org.apache.spark.sql.types.Metadata;
 import org.apache.spark.sql.types.StructField;
 import org.apache.spark.sql.types.StructType;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-//
-//public class Schema {
-//    public Schema() {
-//    }
-//    public StructType asStructType() {
-//
-//        return new StructType()
-//                .add(new Column("marketplace",DataTypes.StringType,true))
-//        .add("customer_id",DataTypes.StringType,true)
-//        .add("product_id",DataTypes.StringType,true)
-//        .add("review_id",DataTypes.StringType,true)
-//        .add("product_parent",DataTypes.StringType,true)
-//        .add("product_title",DataTypes.StringType,true)
-//        .add("product_category",DataTypes.StringType,true)
-//        .add("star_rating",DataTypes.StringType,true)
-//        .add("helpful_votes",DataTypes.StringType,true)
-//        .add("total_votes",DataTypes.StringType,true)
-//        .add("vine",DataTypes.StringType,true)
-//        .add("verified_purchase",DataTypes.StringType,true)
-//        .add("review_headline",DataTypes.StringType,true)
-//        .add("review_body",DataTypes.StringType,true)
-//        .add("review_date",DataTypes.StringType,true);
-//    }
-//
-//}
+import java.sql.Struct;
 
-public abstract class Schema {
-    public Schema() {
+public class Schema {
+    public static StructType reviewSchema() {
+        StructField[] structFields = {
+                new StructField("marketplace", DataTypes.StringType, true, Metadata.empty()),
+                new StructField("product_id", DataTypes.StringType, true, Metadata.empty()),
+                new StructField("review_id", DataTypes.StringType, true, Metadata.empty()),
+                new StructField("customer_id", DataTypes.StringType, true, Metadata.empty()),
+                new StructField("product_parent", DataTypes.StringType, true, Metadata.empty()),
+                new StructField("product_title", DataTypes.StringType, true, Metadata.empty()),
+                new StructField("product_category", DataTypes.StringType, true, Metadata.empty()),
+                new StructField("star_rating", DataTypes.StringType, true, Metadata.empty()),
+                new StructField("helpful_votes", DataTypes.StringType, true, Metadata.empty()),
+                new StructField("total_votes", DataTypes.StringType, true, Metadata.empty()),
+                new StructField("vine", DataTypes.StringType, true, Metadata.empty()),
+                new StructField("verified_purchase", DataTypes.StringType, true, Metadata.empty()),
+                new StructField("review_headline", DataTypes.StringType, true, Metadata.empty()),
+                new StructField("review_body", DataTypes.StringType, true, Metadata.empty()),
+                new StructField("review_date", DataTypes.StringType, true, Metadata.empty())};
+
+        return new StructType(structFields);
     }
 
-    public StructType asStructType() {
-        List<StructField> fields = this.columns().map((column) -> {
-            return DataTypes.createStructField(column.name(), column.type(), column.isNullable());
-        }).collect(Collectors.toList());
-        return DataTypes.createStructType(fields);
+
+    public static StructType loyalCustomersSchema() {
+        StructField[] structFields = {
+                new StructField("customer_id", DataTypes.StringType, true, Metadata.empty()),
+                new StructField("nrOfOrders", DataTypes.LongType, true, Metadata.empty()),
+        };
+        return new StructType(structFields);
     }
 
-    protected abstract Stream<Column> columns();
+    public static StructType categoriesAndCountSchema(){
+        StructField[] structFields = {
+                new StructField("product_category", DataTypes.StringType, true, Metadata.empty()),
+                new StructField("total numbers of products", DataTypes.LongType, true, Metadata.empty()),
+        };
+        return new StructType(structFields);
+    }
 }
