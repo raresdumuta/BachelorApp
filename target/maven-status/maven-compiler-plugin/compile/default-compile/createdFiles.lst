@@ -1,0 +1,11 @@
+utils/DataHandling/DataHandler.class
+utils/DataHandling/RowToEntityConverter.class
+utils/DataHandling/RddWriterInterface.class
+rares/EnhancementApplication.class
+utils/DataHandling/Review.class
+utils/DataHandling/ReviewSchema.class
+utils/DataHandling/Schema.class
+utils/DataHandling/EntityToRowConverter.class
+utils/DataHandling/Column.class
+rares/Job.class
+utils/ArgumentContainer.class
