@@ -1,4 +1,4 @@
-package rares;
+package main;
 
 import org.apache.spark.SparkConf;
 
@@ -13,7 +13,7 @@ import utils.ArgumentContainer;
 
 import utils.DataHandling.DataHandler;
 import utils.DataHandling.Review;
-import utils.DataHandling.RowToEntityConverter;
+import utils.DataHandling.ReviewConverter;
 
 import java.util.Objects;
 
@@ -31,7 +31,7 @@ public class Job {
 
         Dataset<Row> inputDataSet = DataHandler.read(sparkSession, inputPath);
         JavaRDD<Review> inputData = inputDataSet.toJavaRDD()
-                .map(RowToEntityConverter::rowToEntity).filter(Objects::nonNull);
+                .map(ReviewConverter::rowToEntity).filter(Objects::nonNull);
 
         EnhancementApplication enhancementApplication = new EnhancementApplication(inputData);
         JavaRDD<Review> lastYearReviews = enhancementApplication.lastYearReviews();

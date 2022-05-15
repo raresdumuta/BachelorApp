@@ -4,7 +4,7 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.RowFactory;
 import scala.Tuple2;
 
-public class RowToEntityConverter {
+public class ReviewConverter {
     public static Review rowToEntity(Row row) {
         try {
             String marketPlace = row.getAs("marketplace");

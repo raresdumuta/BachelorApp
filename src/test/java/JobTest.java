@@ -1,5 +1,5 @@
 import org.junit.Test;
-import rares.Job;
+import main.Job;
 
 import java.io.IOException;
 
