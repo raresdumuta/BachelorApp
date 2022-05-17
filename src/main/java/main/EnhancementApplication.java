@@ -41,7 +41,7 @@ public class EnhancementApplication implements Serializable {
     }
 
     /**
-     * @return a map containing each category a willnd the total number of reviews for that category
+     * @return a map containing each category a with the total number of reviews for that category
      */
     public JavaPairRDD<String, Long> getCategoryStats() {
         return data.mapToPair(review -> new Tuple2<>(review.product_category,1L)).reduceByKey(Long::sum);
