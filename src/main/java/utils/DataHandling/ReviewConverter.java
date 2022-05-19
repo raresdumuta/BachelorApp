@@ -38,7 +38,11 @@ public class ReviewConverter {
                 review.review_body,review.review_date);
     }
 
-    public static Row loyalCustomerToRow(Tuple2<String, Long> customer){
+    public static Row stringLongToRow(Tuple2<String, Long> customer){
         return RowFactory.create(customer._1(),customer._2());
+    }
+
+    public static Row stringStringToRow(Tuple2<String,String> entry){
+        return RowFactory.create(entry._1(),entry._2());
     }
 }

@@ -2,6 +2,7 @@ package main;
 
 import org.apache.spark.SparkConf;
 
+import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 
 import org.apache.spark.sql.Dataset;
@@ -43,6 +44,10 @@ public class Job {
         JavaRDD<Tuple2<String, Long>> loyalCustomers = enhancementApplication.getLoyalCustomers(5L)
                 .map(entry -> new Tuple2<>(entry._1(),entry._2()));
 
+        JavaRDD<Tuple2<String,String>> productsAverage = enhancementApplication.calculateAverageScoreForProducts()
+                .map(entry -> new Tuple2<>(entry._1(),entry._2()));
+
+        DataHandler.writeProductsAveragePrice(sqlContext, productsAverage, outputPath + "/productsScore");
         DataHandler.write(sqlContext,lastYearReviews,outputPath + "/lastYearReviews");
         DataHandler.writeLoyalCustomers(sqlContext,loyalCustomers,outputPath + "/loyalCustomers");
         DataHandler.writeCategoryStats(sqlContext,categoryStats,outputPath + "/categoryStats");

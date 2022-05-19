@@ -8,6 +8,8 @@ import org.apache.spark.sql.types.StructType;
 import java.sql.Struct;
 
 public class Schema {
+
+
     public static StructType reviewSchema() {
         StructField[] structFields = {
                 new StructField("marketplace", DataTypes.StringType, true, Metadata.empty()),
@@ -41,7 +43,15 @@ public class Schema {
     public static StructType categoriesAndCountSchema(){
         StructField[] structFields = {
                 new StructField("product_category", DataTypes.StringType, true, Metadata.empty()),
-                new StructField("total numbers of products", DataTypes.LongType, true, Metadata.empty()),
+                new StructField("total_numbers_of_products", DataTypes.LongType, true, Metadata.empty()),
+        };
+        return new StructType(structFields);
+    }
+
+    public static StructType reviewsAndScore(){
+        StructField[] structFields = {
+                new StructField("product_id", DataTypes.StringType, true, Metadata.empty()),
+                new StructField("average_score", DataTypes.StringType, true, Metadata.empty()),
         };
         return new StructType(structFields);
     }

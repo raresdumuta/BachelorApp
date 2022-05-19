@@ -21,15 +21,21 @@ public class DataHandler {
 
     public static void writeLoyalCustomers(SQLContext sqlContext, JavaRDD<Tuple2<String, Long>> outputData, String outputPath) {
 
-        JavaRDD<Row> rowOutputData = outputData.map(ReviewConverter::loyalCustomerToRow);
+        JavaRDD<Row> rowOutputData = outputData.map(ReviewConverter::stringLongToRow);
         Dataset<Row> output = sqlContext.createDataFrame(rowOutputData,Schema.loyalCustomersSchema());
         output.write().mode("overwrite").csv(outputPath);
     }
 
     public static void writeCategoryStats(SQLContext sqlContext, JavaRDD<Tuple2<String, Long>> outputData, String outputPath) {
-        JavaRDD<Row> rowOutputData = outputData.map(ReviewConverter::loyalCustomerToRow);
+        JavaRDD<Row> rowOutputData = outputData.map(ReviewConverter::stringLongToRow);
 
         Dataset<Row> output = sqlContext.createDataFrame(rowOutputData,Schema.categoriesAndCountSchema());
+        output.write().mode("overwrite").csv(outputPath);
+    }
+    public static void writeProductsAveragePrice(SQLContext sqlContext, JavaRDD<Tuple2<String, String>> outputData, String outputPath) {
+        JavaRDD<Row> rowOutputData = outputData.map(ReviewConverter::stringStringToRow);
+
+        Dataset<Row> output = sqlContext.createDataFrame(rowOutputData,Schema.reviewsAndScore());
         output.write().mode("overwrite").csv(outputPath);
     }
 
