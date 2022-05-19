@@ -45,4 +45,25 @@ public class ReviewConverter {
     public static Row stringStringToRow(Tuple2<String,String> entry){
         return RowFactory.create(entry._1(),entry._2());
     }
+
+    public static Tuple2<String, String> rowToProductsAndScore(Row row){
+
+        String product_id = row.getAs("product_id");
+        String average_score = row.getAs("average_score");
+        return new Tuple2<>(product_id,average_score);
+    }
+
+    public static Tuple2<String, Long> rowToCustomerStats(Row row){
+
+        String customer_id = row.getAs("customer_id");
+        Long nrOfOrders = Long.parseLong(row.getAs("nrOfOrders"));
+        return new Tuple2<>(customer_id,nrOfOrders);
+    }
+
+    public static Tuple2<String, Long> rowToCategoryStats(Row row){
+
+        String product_category = row.getAs("product_category");
+        Long total_numbers_of_products = Long.parseLong(row.getAs("total_numbers_of_products"));
+        return new Tuple2<>(product_category,total_numbers_of_products);
+    }
 }

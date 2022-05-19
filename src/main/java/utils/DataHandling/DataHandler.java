@@ -11,32 +11,36 @@ public class DataHandler {
         return sparkSession.read().option("header", "true").option("delimiter", "\t").csv(inputPath);
     }
 
+    public static JavaRDD<Row> readRDD(SparkSession sparkSession, String inputPath) {
+        return sparkSession.read().option("header", "true").csv(inputPath).toJavaRDD();
+    }
+
     public static void write(SQLContext sqlContext, JavaRDD<Review> outputData, String outputPath) {
 
         JavaRDD<Row> rowOutputData = outputData.map(ReviewConverter::entityToRow);
 
         Dataset<Row> output = sqlContext.createDataFrame(rowOutputData, Schema.reviewSchema());
-        output.write().mode("overwrite").csv(outputPath);
+        output.write().option("header", "true").mode("overwrite").csv(outputPath);
     }
 
     public static void writeLoyalCustomers(SQLContext sqlContext, JavaRDD<Tuple2<String, Long>> outputData, String outputPath) {
 
         JavaRDD<Row> rowOutputData = outputData.map(ReviewConverter::stringLongToRow);
         Dataset<Row> output = sqlContext.createDataFrame(rowOutputData,Schema.loyalCustomersSchema());
-        output.write().mode("overwrite").csv(outputPath);
+        output.write().option("header", "true").mode("overwrite").csv(outputPath);
     }
 
     public static void writeCategoryStats(SQLContext sqlContext, JavaRDD<Tuple2<String, Long>> outputData, String outputPath) {
         JavaRDD<Row> rowOutputData = outputData.map(ReviewConverter::stringLongToRow);
 
         Dataset<Row> output = sqlContext.createDataFrame(rowOutputData,Schema.categoriesAndCountSchema());
-        output.write().mode("overwrite").csv(outputPath);
+        output.write().option("header", "true").mode("overwrite").csv(outputPath);
     }
     public static void writeProductsAveragePrice(SQLContext sqlContext, JavaRDD<Tuple2<String, String>> outputData, String outputPath) {
         JavaRDD<Row> rowOutputData = outputData.map(ReviewConverter::stringStringToRow);
 
         Dataset<Row> output = sqlContext.createDataFrame(rowOutputData,Schema.reviewsAndScore());
-        output.write().mode("overwrite").csv(outputPath);
+        output.write().option("header", "true").mode("overwrite").csv(outputPath);
     }
 
 

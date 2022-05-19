@@ -92,7 +92,6 @@ public class EnhancementApplication implements Serializable {
 
         JavaPairRDD<String, String> output = productAndRating.combineByKey(createAcc, combiner, merger)
                 .mapToPair(value -> new Tuple2<>(value._1, df.format(value._2().sum * 1.0/value._2.count)));
-        System.out.println(output.collectAsMap());
         return output;
     }
 
