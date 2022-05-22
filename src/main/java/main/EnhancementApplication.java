@@ -75,9 +75,9 @@ public class EnhancementApplication implements Serializable {
     public JavaPairRDD<String, String> calculateAverageScoreForProducts() {
         JavaPairRDD<String, Long> productAndRating = mapToProductAndStar(data);
 
-        Function<Long, SumAndCount> createAcc = (Long x) -> new SumAndCount(x, 1L);
+        Function<Long, SumAndCount> combiner = (Long x) -> new SumAndCount(x, 1L);
 
-        Function2<SumAndCount, Long, SumAndCount> combiner = (SumAndCount a, Long x) -> {
+        Function2<SumAndCount, Long, SumAndCount> mergeValues = (SumAndCount a, Long x) -> {
             a.sum += x;
             a.count += 1L;
             return a;
@@ -90,9 +90,8 @@ public class EnhancementApplication implements Serializable {
         };
         DecimalFormat df = new DecimalFormat("#.#");
 
-        JavaPairRDD<String, String> output = productAndRating.combineByKey(createAcc, combiner, merger)
+        return productAndRating.combineByKey(combiner, mergeValues, merger)
                 .mapToPair(value -> new Tuple2<>(value._1, df.format(value._2().sum * 1.0/value._2.count)));
-        return output;
     }
 
     private JavaPairRDD<String, Long> mapToProductAndStar(JavaRDD<Review> reviews) {
