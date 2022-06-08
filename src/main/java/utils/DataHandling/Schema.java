@@ -35,7 +35,7 @@ public class Schema {
     public static StructType loyalCustomersSchema() {
         StructField[] structFields = {
                 new StructField("customer_id", DataTypes.StringType, true, Metadata.empty()),
-                new StructField("nrOfOrders", DataTypes.LongType, true, Metadata.empty()),
+                new StructField("number_of_reviews", DataTypes.LongType, true, Metadata.empty()),
         };
         return new StructType(structFields);
     }

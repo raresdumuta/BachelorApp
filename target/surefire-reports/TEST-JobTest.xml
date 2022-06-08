@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="JobTest" time="39.767" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="JobTest" time="34.985" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2021.1.1"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -66,8 +66,8 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="JobTest" name="testDataIntegrityForProductsAndScore" time="22.599"/>
-  <testcase classname="JobTest" name="testDataIntegrityForLastYearReviews" time="6.091"/>
-  <testcase classname="JobTest" name="testCategoryStats" time="5.208"/>
-  <testcase classname="JobTest" name="testCustomers" time="5.869"/>
+  <testcase classname="JobTest" name="testDataIntegrityForProductsAndScore" time="19.544"/>
+  <testcase classname="JobTest" name="testDataIntegrityForLastYearReviews" time="5.224"/>
+  <testcase classname="JobTest" name="testCategoryStats" time="5.806"/>
+  <testcase classname="JobTest" name="testCustomers" time="4.411"/>
 </testsuite>

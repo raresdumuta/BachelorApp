@@ -39,7 +39,6 @@ public class Job {
 
         JavaRDD<Tuple2<String,Long>> categoryStats = enhancementApplication.getCategoryStats()
                 .map(entry -> new Tuple2<>(entry._1(),entry._2()));
-        Long totalNumberOfReviewsAnalyzed =  enhancementApplication.getTotalNumberOfReviews();
 
         JavaRDD<Tuple2<String, Long>> loyalCustomers = enhancementApplication.getLoyalCustomers(5L)
                 .map(entry -> new Tuple2<>(entry._1(),entry._2()));
@@ -48,12 +47,10 @@ public class Job {
                 .map(entry -> new Tuple2<>(entry._1(),entry._2()));
 
         DataHandler.writeProductsAveragePrice(sqlContext, productsAverage, outputPath + "/productsScore");
-        DataHandler.write(sqlContext,lastYearReviews,outputPath + "/lastYearReviews");
-        DataHandler.writeLoyalCustomers(sqlContext,loyalCustomers,outputPath + "/loyalCustomers");
-        DataHandler.writeCategoryStats(sqlContext,categoryStats,outputPath + "/categoryStats");
+        DataHandler.write(sqlContext,lastYearReviews,outputPath + "/reviewsSince2013");
+        DataHandler.writeLoyalCustomers(sqlContext,loyalCustomers,outputPath + "/reviewsPerCustomer");
+        DataHandler.writeCategoryStats(sqlContext,categoryStats,outputPath + "/reviewsPerCategory");
 
-
-        System.out.println("total number of reviews is: " + totalNumberOfReviewsAnalyzed);
         sparkSession.close();
     }
 }
